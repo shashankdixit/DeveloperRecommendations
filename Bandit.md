@@ -402,7 +402,6 @@ In summary, to fix the tarfile_unsafe_members vulnerability, you should use the 
 
 ## hashlib ##
 
-````
 The hashlib library in Python is commonly used to create cryptographic hashes of data, such as SHA-256 or SHA-512. However, there are a few potential vulnerabilities that can arise when using hashlib incorrectly.
 
 One of the most common vulnerabilities is using a weak or broken hashing algorithm, such as SHA-1 or MD5. These algorithms are considered to be broken and can be easily cracked by attackers. To fix this vulnerability, you should use a stronger hashing algorithm such as SHA-256 or SHA-512.
@@ -418,7 +417,6 @@ Generate a unique salt for each password and store it in a secure way.
 Use a high iteration count when using key derivation functions such as PBKDF2 or bcrypt.
 Use a library like argon2, bcrypt or scrypt that include salt and iteration count, these libraries are designed to be secure by default.
 It's important to note that, while these steps will help to improve the security of your application, it's also important to keep your software updated and to use best practices when handling sensitive data.
-````
 
 ## request_with_no_cert_validation ##
 To fix the "request with no certificate validation" vulnerability in Python, you can use the requests library's verify parameter. This parameter allows you to specify the path to a CA_BUNDLE file or directory with certificates of trusted CAs.
