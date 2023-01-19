@@ -266,10 +266,46 @@ except Exception as e:
     # handle the exception
     logging.error(e)
 ````
-- Use the try-except-else statement: In this approach, you can catch the exception and
+- Use the try-except-else statement: In this approach, you can catch the exception.
 
 ## execute_with_run_as_root_equals_true ##
+The execute_with_run_as_root_equals_true vulnerability occurs when a script or application is executed as the root user, which can lead to privilege escalation attacks if the script or application contains any vulnerabilities.
+
+To fix this vulnerability, you should avoid executing scripts or applications as the root user and instead use a non-privileged user account with the least privilege necessary.
+
+Here are a few examples of how to execute a script or application as a non-privileged user in Python:
+
+- Use the subprocess module to run the script or application with the su or sudo command:
+````
+import subprocess
+
+subprocess.run(["su", "-c", "script.py", "nonprivilegeduser"])
+````
+- Use the os.setuid() function to change the effective user ID of the current process:
+````
+import os
+import pwd
+
+nonprivilegeduser = pwd.getpwnam("nonprivilegeduser")
+os.setuid(nonprivilegeduser.pw_uid)
+````
+- Use the os.exec() function, and then call os.setuid() before the execution of the script or application
+````
+import os
+import pwd
+
+nonprivilegeduser = pwd.getpwnam("nonprivilegeduser")
+os.setuid(nonprivilegeduser.pw_uid)
+os.execvp("script.py", ["script.py"])
+````
+It is important to use the least privilege necessary and validate user input before passing it to these functions, this way you can minimize the risk of a malicious user exploiting this vulnerability.
+
+It is also a good practice to review the file permissions regularly and ensure that they are not too permissive for the files and directories that are important for your system.
+
+It is also good practice to use a virtual environment and to run the application in it.
+
 ## try_except_continue ##
+
 ## request_without_timeout ##
 ## flask_debug_true ##
 ## tarfile_unsafe_members ##
