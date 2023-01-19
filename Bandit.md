@@ -1,4 +1,4 @@
-## B101: assert_used ##
+## assert_used ##
 
 There are a few ways to address the vulnerability associated with the use of assert statements in Python code. Here are a few options:
 
@@ -12,7 +12,7 @@ There are a few ways to address the vulnerability associated with the use of ass
 
 It's worth noting that the best approach will depend on the specific use case and requirements of your code. But a combination of these methods can be a good solution to address the vulnerability.
 
-## B102: exec_used ##
+## exec_used ##
 To fix the exec_used vulnerability identified by SAST in Python, you should avoid using the exec function and use safer alternatives like eval or execfile.
 
 Here is an example of how to use the eval function to safely evaluate a string as Python code:
@@ -37,7 +37,7 @@ It is important to use the least privilege necessary and validate user input bef
 It is also a good practice to keep your software updated, and use security libraries and frameworks to help you prevent this type of vulnerabilities.
 
 
-## B103: set_bad_file_permissions ##
+## set_bad_file_permissions ##
 
 To fix the set_bad_file_permissions vulnerability in Python, you can use the os.chmod() function to set the file permissions securely.
 
@@ -104,17 +104,175 @@ Also, it is a good practice to use the least privilege necessary and restrict ac
 It is also a good practice to review the network configurations regularly, and ensure that the configurations are not too permissive for the files and directories that are important for your system.
 
 
-B105: hardcoded_password_string
-B106: hardcoded_password_funcarg
-B107: hardcoded_password_default
-B108: hardcoded_tmp_directory
-B109: password_config_option_not_marked_secret
-B110: try_except_pass
-B111: execute_with_run_as_root_equals_true
-B112: try_except_continue
-B113: request_without_timeout
-B201: flask_debug_true
-B202: tarfile_unsafe_members
+## hardcoded_password_string ##
+
+To fix the hardcoded_password_string vulnerability in Python, you should avoid hardcoding passwords in the source code and instead use a more secure method of storing and retrieving them, such as using environment variables or a password manager.
+
+Here is an example of how to use environment variables to store a password in Python:
+````
+import os
+
+password = os.environ.get("SECRET_PASSWORD")
+````
+In this example, the password is stored in an environment variable called SECRET_PASSWORD. This way you can change the password without modifying the code and also it is not visible in the source code.
+
+Alternatively, you can use a password manager to store and retrieve the password.
+````
+from getpass import getpass
+
+password = getpass("Enter password: ")
+````
+The getpass function prompts the user to enter their password, but the password they enter will not be echoed to the console.
+
+It is important to use strong and unique passwords, and also to rotate them regularly.
+
+
+
+## hardcoded_password_funcarg ##
+To fix the hardcoded_password_funcarg vulnerability in Python, you should avoid passing hardcoded passwords as arguments to functions and instead use a more secure method of storing and retrieving them, such as using environment variables or a password manager.
+
+Here is an example of how to use environment variables to pass a password as a function argument in Python:
+
+
+````
+import os
+
+def connect_to_database(username, password=os.environ.get("SECRET_PASSWORD")):
+    # Connect to the database using the provided username and password
+
+connect_to_database("user1")
+````
+In this example, the password is stored in an environment variable called SECRET_PASSWORD, and it is passed as a default argument to the connect_to_database function. This way you can change the password without modifying the code and also it is not visible in the source code.
+
+Alternatively, you can use a password manager to store and retrieve the password and pass it to the function.
+```
+from getpass import getpass
+
+def connect_to_database(username, password=None):
+    if not password:
+        password = getpass("Enter password: ")
+    # Connect to the database using the provided username and password
+
+connect_to_database("user1")
+````
+The getpass function prompts the user to enter their password, but the password they enter will not be echoed to the console.
+
+It is important to use strong and unique passwords, and also to rotate them regularly.
+
+It is also a good practice to use two-factor authentication when possible.
+It is also good practice to avoid storing passwords in plaintext, instead use a cryptographically secure password hashing algorithm like bcrypt, scrypt, or argon2.
+
+It is also important to use least privilege necessary and validate user input before passing it to these functions, this way you can minimize the risk of a malicious user exploiting this vulnerability.
+
+
+## hardcoded_password_default ##
+To fix the hardcoded_password_default vulnerability in Python, you should avoid using hardcoded default passwords in function arguments and instead use a more secure method of storing and retrieving them, such as using environment variables or a password manager.
+
+Here is an example of how to use environment variables to set a default password in Python:
+````
+import os
+
+def connect_to_database(username, password=os.environ.get("SECRET_PASSWORD")):
+    # Connect to the database using the provided username and password
+
+connect_to_database("user1")
+````
+In this example, the password is stored in an environment variable called SECRET_PASSWORD, and it is passed as a default argument to the connect_to_database function. This way you can change the password without modifying the code and also it is not visible in the source code.
+
+Alternatively, you can use a password manager to store and retrieve the password and pass it as default argument.
+````
+from getpass import getpass
+
+def connect_to_database(username, password=None):
+    if password is None:
+        password = getpass("Enter password: ")
+    # Connect to the database using the provided username and password
+
+connect_to_database("user1")
+````
+
+## hardcoded_tmp_directory ##
+
+To fix the hardcoded_tmp_directory vulnerability in Python, you should avoid hardcoding the path to the temporary directory and instead use a more secure and flexible method of specifying the location of the temporary directory.
+Here are a few examples of how to specify the temporary directory location in a more secure and flexible way:
+
+- Use the tempfile module: The tempfile module provides a secure and cross-platform way to create and manage temporary files and directories.
+````
+import tempfile
+
+temp_dir = tempfile.mkdtemp()
+````
+This will return a unique temporary directory path that will be deleted when the program exits.
+
+- Use the os.environ: You can use the os.environ to access the environment variables and use the TMP or TEMP variables, which are set to the location of the temporary directory on that system.
+````
+import os
+
+temp_dir = os.environ["TMP"]
+````
+
+- Use the tempdir package: is a package that provides a context manager that you can use to create and automatically delete temporary directories.
+````
+from tempdir import TemporaryDirectory
+
+with TemporaryDirectory() as temp_dir:
+    # Use the temporary directory
+````
+It is important to use the least privilege necessary and validate the temporary directory path before use, this way you can avoid using unintended directories.
+
+It is also a good practice to review the file permissions regularly and ensure that they are not too permissive for the files and directories that are important for your system.
+
+It is also good to use try-except block to handle any possible errors during the process of creating or accessing the temporary directory.
+
+## password_config_option_not_marked_secret ##
+To fix the password_config_option_not_marked_secret vulnerability, you should ensure that any configuration options that contain sensitive information, such as passwords, are marked as secret. This can be done by using a separate configuration file or a secret management service that is separate from the main application code and not stored in version control.
+Here are a few examples of how to store sensitive information in a secure manner:
+
+- Use environment variables: You can use environment variables to store sensitive information such as passwords and then access them in your code using the os.environ dictionary. This way, the sensitive information is not stored in version control and can be easily changed without modifying the code.
+````
+import os
+password = os.environ["SECRET_PASSWORD"]
+````
+- Use a separate configuration file: You can store sensitive information such as passwords in a separate configuration file that is not stored in version control. You can then read the configuration file in your code and use the sensitive information.
+````
+import config
+password = config.SECRET_PASSWORD
+````
+- Use a secret management service: You can use a secret management service such as Hashicorp Vault, AWS Secrets Manager or Azure Key Vault, to securely store and manage sensitive information such as passwords. This way, the sensitive information is not stored in version control and can be easily changed without modifying the code.
+It is important to use the least privilege necessary and validate the sensitive information before use, this way you can minimize the risk of a malicious user exploiting this vulnerability.
+
+It is also a good practice to regularly rotate the passwords, and use two-factor authentication when possible, and also use a cryptographically secure password hashing algorithm like bcrypt, scrypt, or argon2.
+
+## try_except_pass ##
+
+The try-except-pass statement in Python is considered an anti-pattern because it hides errors and makes it difficult to diagnose and fix issues. To fix this vulnerability, you should replace the try-except-pass statement with a more appropriate error handling mechanism.
+
+Here are a few examples of how to handle errors in a more appropriate way:
+
+- Use the try-except-raise statement: In this approach, you can catch the exception, handle it, and then re-raise it if necessary. This way, you can handle the exception in a way that is appropriate for your application, and also make sure that the exception is not silently ignored.
+````
+try:
+    # code that may raise an exception
+except Exception as e:
+    # handle the exception
+    raise e
+````
+- Use the try-except-log statement: In this approach, you can catch the exception, handle it, and then log it. This way, you can handle the exception in a way that is appropriate for your application, and also make sure that the exception is not silently ignored.
+````
+import logging
+try:
+    # code that may raise an exception
+except Exception as e:
+    # handle the exception
+    logging.error(e)
+````
+- Use the try-except-else statement: In this approach, you can catch the exception and
+
+## execute_with_run_as_root_equals_true ##
+## try_except_continue ##
+## request_without_timeout ##
+## flask_debug_true ##
+## tarfile_unsafe_members ##
 B324: hashlib
 B501: request_with_no_cert_validation
 B502: ssl_with_bad_version
