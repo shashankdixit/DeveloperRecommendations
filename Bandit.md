@@ -420,8 +420,23 @@ Use a library like argon2, bcrypt or scrypt that include salt and iteration coun
 It's important to note that, while these steps will help to improve the security of your application, it's also important to keep your software updated and to use best practices when handling sensitive data.
 ````
 
-B501: request_with_no_cert_validation
-B502: ssl_with_bad_version
+## request_with_no_cert_validation ##
+To fix the "request with no certificate validation" vulnerability in Python, you can use the requests library's verify parameter. This parameter allows you to specify the path to a CA_BUNDLE file or directory with certificates of trusted CAs.
+
+Here's an example of how you can use it to make a secure request:
+````
+import requests
+
+response = requests.get('https://example.com', verify='path/to/CA_BUNDLE')
+````
+Alternatively, you can disable certificate validation altogether by passing False to the verify parameter, but this is not recommended as it leaves your application vulnerable to man-in-the-middle attacks.
+````
+response = requests.get('https://example.com', verify=False) # NOT RECOMMENDED
+````
+It is better to use a CA_BUNDLE file or directory with certificates of trusted CAs, as this will allow your application to verify the identity of the server it is communicating with and ensure that the connection is secure.
+
+## ssl_with_bad_version ##
+
 B503: ssl_with_bad_defaults
 B504: ssl_with_no_version
 B505: weak_cryptographic_key
