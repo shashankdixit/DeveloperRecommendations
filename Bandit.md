@@ -305,11 +305,121 @@ It is also a good practice to review the file permissions regularly and ensure t
 It is also good practice to use a virtual environment and to run the application in it.
 
 ## try_except_continue ##
+A "try-except-continue" vulnerability in Python occurs when a try-except block is used to catch and handle exceptions, but the code inside the block continues to execute regardless of whether an exception occurred or not. This can lead to unintended behavior and potential security vulnerabilities if the code inside the block is performing sensitive operations.
+
+To fix this vulnerability, the code inside the try block should be refactored to only execute if the operation was successful.
+
+One way to accomplish this is to move the code that should only be executed if the operation is successful, into the else block of the try-except statement.
+````
+try:
+    sensitive_operation()
+except Exception:
+    handle_exception()
+else:
+    # code here will only be executed if sensitive_operation() was successful
+    continue_execution()
+````
+Another way is to use a flag variable, to check if the operation was successful or not before continuing to execute the rest of the code.
+````
+success = False
+try:
+    sensitive_operation()
+    success = True
+except Exception:
+    handle_exception()
+
+if success:
+    continue_execution()
+````
+This way, you can ensure that the code inside the try block only executes if the operation is successful and not when an exception is raised.
+
+It's also important to mention that it's better to catch only the specific exception that you are expecting, instead of using a broad exception catch like Exception.
+
 
 ## request_without_timeout ##
+A "request without timeout" vulnerability in Python occurs when a script makes an HTTP or network request without specifying a timeout, which can cause the script to hang indefinitely if the server doesn't respond or is unavailable. This can lead to a denial of service (DoS) attack and can also cause the script to consume excessive resources.
+
+To fix this vulnerability, you can specify a timeout when making a request using the timeout parameter.
+
+For example, if you are using the requests library to make an HTTP request, you can specify a timeout like this:
+
+````
+import requests
+
+response = requests.get("http://example.com", timeout=5)
+````
+This will cause the request to raise a requests.exceptions.Timeout exception if the server doesn't respond within 5 seconds.
+
+If you are using the urllib library, the urlopen function accepts a timeout parameter like this:
+````
+from urllib.request import urlopen
+
+response = urlopen("http://example.com", timeout=5)
+````
+This will cause the request to raise a urllib.error.URLError exception if the server doesn't respond within 5 seconds.
+
+It's important to note that the timeout parameter is optional and you should set it to a reasonable value that depends on your use case, a too short timeout may cause the request to fail even if the server is available, and a too long timeout may make the script to consume excessive resources.
+
+In addition to that, it's important to handle the exception that is raised when the timeout occurs, to avoid the script to crash.
+
 ## flask_debug_true ##
+
+The flask_debug_true error in Python is likely caused by a typo in your code. Instead of writing flask_debug_true, you probably meant to write app.debug = True. This setting enables the built-in debugger for Flask, which allows you to see detailed error messages in the browser when something goes wrong with your application.
+To fix this issue, replace flask_debug_true with app.debug = True in your Python script, and make sure that app is the variable name for your Flask application.
+It's important to note that this setting should only be enabled in development environment and should not be used in production as it exposes sensitive information and could be used to exploit vulnerabilities in your application.
+````
+from flask import Flask
+app = Flask(__name__)
+app.debug = True
+````
+In production, you should set app.debug = False to disable the debugger and hide error messages from the user.
+You could also use different web server configurations like Gunicorn or Uwsgi to run the application in production.
+
 ## tarfile_unsafe_members ##
-B324: hashlib
+The tarfile_unsafe_members vulnerability in Python occurs when using the tarfile.TarFile.extractall() method to extract files from a tar archive without properly checking for unsafe file names (such as those that contain '/', '..', and '\0'). This can lead to a directory traversal vulnerability, which can be exploited to access files outside of the intended directory.
+
+To fix this vulnerability, you should use the tarfile.TarFile.extract() method instead of extractall(), which allows you to specify a different directory to extract the files to, and provides a way to filter the files based on their name.
+
+Another way to fix this vulnerability is to use the tarfile.TarFile.extractall(members=None, path=None, **kwargs) method and pass a filtering function as the members parameter.
+````
+def safe_extractall(tar, members=None):
+    for member in members:
+        if '/../' in member.name or '/./' in member.name:
+            continue
+        tar.extract(member)
+
+with tarfile.open(file_path) as tar:
+    safe_extractall(tar, tar.getmembers())
+````
+This will iterate over the members of the tar archive and extract only those which have safe names.
+
+Another way is to use the tarfile.TarFile.add() method to add files to the archive, this method automatically checks for unsafe filenames and raises a ValueError if one is encountered.
+
+It's important to note that using the add() method can be more secure, but it can also be more restrictive and may not be suitable for all use cases. It's a good practice to validate user input and filter filenames before passing them to the add() method.
+
+In summary, to fix the tarfile_unsafe_members vulnerability, you should use the tarfile.TarFile.extract() method and filter the files based on their name, or use the tarfile.TarFile.add() method to add files to the archive, and validate and filter filenames before passing them to the add() method.
+
+
+## hashlib ##
+
+````
+The hashlib library in Python is commonly used to create cryptographic hashes of data, such as SHA-256 or SHA-512. However, there are a few potential vulnerabilities that can arise when using hashlib incorrectly.
+
+One of the most common vulnerabilities is using a weak or broken hashing algorithm, such as SHA-1 or MD5. These algorithms are considered to be broken and can be easily cracked by attackers. To fix this vulnerability, you should use a stronger hashing algorithm such as SHA-256 or SHA-512.
+
+Another vulnerability is using the same salt for multiple passwords. Salt is random data added to the password before hashing, it helps to avoid precomputed tables attacks, but if the same salt is used for multiple passwords, attackers can use this information to crack them more easily. To fix this vulnerability, you should generate a unique salt for each password and store it in a secure way.
+
+A third vulnerability is using a low iteration count when using an algorithm such as PBKDF2 or bcrypt. These algorithms use key derivation function to increase the computational cost of cracking the password. To fix this vulnerability, you should use a high iteration count, which will make the cracking process more computationally expensive.
+
+In summary, to fix hashlib vulnerabilities, you should:
+
+Use a stronger hashing algorithm such as SHA-256 or SHA-512.
+Generate a unique salt for each password and store it in a secure way.
+Use a high iteration count when using key derivation functions such as PBKDF2 or bcrypt.
+Use a library like argon2, bcrypt or scrypt that include salt and iteration count, these libraries are designed to be secure by default.
+It's important to note that, while these steps will help to improve the security of your application, it's also important to keep your software updated and to use best practices when handling sensitive data.
+````
+
 B501: request_with_no_cert_validation
 B502: ssl_with_bad_version
 B503: ssl_with_bad_defaults
