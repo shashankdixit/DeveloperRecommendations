@@ -224,7 +224,7 @@ It is also a good practice to review the file permissions regularly and ensure t
 
 It is also good to use try-except block to handle any possible errors during the process of creating or accessing the temporary directory.
 
-## password_config_option_not_marked_secret ##
+## B109 password_config_option_not_marked_secret ##
 To fix the password_config_option_not_marked_secret vulnerability, you should ensure that any configuration options that contain sensitive information, such as passwords, are marked as secret. This can be done by using a separate configuration file or a secret management service that is separate from the main application code and not stored in version control.
 Here are a few examples of how to store sensitive information in a secure manner:
 
