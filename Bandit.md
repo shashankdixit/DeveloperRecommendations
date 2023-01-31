@@ -1,4 +1,4 @@
-# B101 #
+## B101 ##
 ## assert_used ##
 
 There are a few ways to address the vulnerability associated with the use of assert statements in Python code. Here are a few options:
@@ -13,7 +13,7 @@ There are a few ways to address the vulnerability associated with the use of ass
 
 It's worth noting that the best approach will depend on the specific use case and requirements of your code. But a combination of these methods can be a good solution to address the vulnerability.
 
-# B102 #
+## B102 ##
 ## exec_used ##
 To fix the exec_used vulnerability identified by SAST in Python, you should avoid using the exec function and use safer alternatives like eval or execfile.
 
@@ -38,7 +38,7 @@ It is important to use the least privilege necessary and validate user input bef
 
 It is also a good practice to keep your software updated, and use security libraries and frameworks to help you prevent this type of vulnerabilities.
 
-# B103 #
+## B103 ##
 ## set_bad_file_permissions ##
 
 To fix the set_bad_file_permissions vulnerability in Python, you can use the os.chmod() function to set the file permissions securely.
@@ -75,7 +75,7 @@ It is a good practice to review permissions regularly, and ensure that the permi
 
 It is also good to use try-except block to handle any possible errors during the process of changing the permissions.
 
-# B104 #
+## B104 ##
 ## hardcoded_bind_all_interfaces ##
 To fix the hardcoded_bind_all_interfaces vulnerability in Python, you should avoid hardcoding the IP address or hostname to bind to all interfaces and instead use a variable or configuration option that allows for flexibility in the host or IP address to bind to.
 
@@ -106,7 +106,7 @@ Also, it is a good practice to use the least privilege necessary and restrict ac
 
 It is also a good practice to review the network configurations regularly, and ensure that the configurations are not too permissive for the files and directories that are important for your system.
 
-# B105 #
+## B105 ##
 ## hardcoded_password_string ##
 
 To fix the hardcoded_password_string vulnerability in Python, you should avoid hardcoding passwords in the source code and instead use a more secure method of storing and retrieving them, such as using environment variables or a password manager.
@@ -130,7 +130,7 @@ The getpass function prompts the user to enter their password, but the password 
 It is important to use strong and unique passwords, and also to rotate them regularly.
 
 
-# B106 #
+## B106 ##
 ## hardcoded_password_funcarg ##
 To fix the hardcoded_password_funcarg vulnerability in Python, you should avoid passing hardcoded passwords as arguments to functions and instead use a more secure method of storing and retrieving them, such as using environment variables or a password manager.
 
@@ -167,7 +167,7 @@ It is also good practice to avoid storing passwords in plaintext, instead use a 
 
 It is also important to use least privilege necessary and validate user input before passing it to these functions, this way you can minimize the risk of a malicious user exploiting this vulnerability.
 
-# B107 #
+## B107 ##
 ## hardcoded_password_default ##
 To fix the hardcoded_password_default vulnerability in Python, you should avoid using hardcoded default passwords in function arguments and instead use a more secure method of storing and retrieving them, such as using environment variables or a password manager.
 
@@ -194,7 +194,7 @@ def connect_to_database(username, password=None):
 connect_to_database("user1")
 ````
 
-# B108 #
+## B108 ##
 ## hardcoded_tmp_directory ##
 
 To fix the hardcoded_tmp_directory vulnerability in Python, you should avoid hardcoding the path to the temporary directory and instead use a more secure and flexible method of specifying the location of the temporary directory.
@@ -228,7 +228,7 @@ It is also a good practice to review the file permissions regularly and ensure t
 
 It is also good to use try-except block to handle any possible errors during the process of creating or accessing the temporary directory.
 
-# B109 #
+## B109 ##
 ## password_config_option_not_marked_secret ##
 To fix the password_config_option_not_marked_secret vulnerability, you should ensure that any configuration options that contain sensitive information, such as passwords, are marked as secret. This can be done by using a separate configuration file or a secret management service that is separate from the main application code and not stored in version control.
 Here are a few examples of how to store sensitive information in a secure manner:
@@ -248,7 +248,7 @@ It is important to use the least privilege necessary and validate the sensitive 
 
 It is also a good practice to regularly rotate the passwords, and use two-factor authentication when possible, and also use a cryptographically secure password hashing algorithm like bcrypt, scrypt, or argon2.
 
-# B110 #
+## B110 ##
 ## try_except_pass ##
 
 The try-except-pass statement in Python is considered an anti-pattern because it hides errors and makes it difficult to diagnose and fix issues. To fix this vulnerability, you should replace the try-except-pass statement with a more appropriate error handling mechanism.
@@ -274,7 +274,7 @@ except Exception as e:
 ````
 - Use the try-except-else statement: In this approach, you can catch the exception.
 
-# B111 #
+## B111 ##
 ## execute_with_run_as_root_equals_true ##
 The execute_with_run_as_root_equals_true vulnerability occurs when a script or application is executed as the root user, which can lead to privilege escalation attacks if the script or application contains any vulnerabilities.
 
@@ -311,7 +311,7 @@ It is also a good practice to review the file permissions regularly and ensure t
 
 It is also good practice to use a virtual environment and to run the application in it.
 
-# B112 #
+## B112 ##
 ## try_except_continue ##
 A "try-except-continue" vulnerability in Python occurs when a try-except block is used to catch and handle exceptions, but the code inside the block continues to execute regardless of whether an exception occurred or not. This can lead to unintended behavior and potential security vulnerabilities if the code inside the block is performing sensitive operations.
 
@@ -343,7 +343,7 @@ This way, you can ensure that the code inside the try block only executes if the
 
 It's also important to mention that it's better to catch only the specific exception that you are expecting, instead of using a broad exception catch like Exception.
 
-# B113 #
+## B113 ##
 ## request_without_timeout ##
 A "request without timeout" vulnerability in Python occurs when a script makes an HTTP or network request without specifying a timeout, which can cause the script to hang indefinitely if the server doesn't respond or is unavailable. This can lead to a denial of service (DoS) attack and can also cause the script to consume excessive resources.
 
@@ -370,7 +370,7 @@ It's important to note that the timeout parameter is optional and you should set
 
 In addition to that, it's important to handle the exception that is raised when the timeout occurs, to avoid the script to crash.
 
-# B201 #
+## B201 ##
 ## flask_debug_true ##
 
 The flask_debug_true error in Python is likely caused by a typo in your code. Instead of writing flask_debug_true, you probably meant to write app.debug = True. This setting enables the built-in debugger for Flask, which allows you to see detailed error messages in the browser when something goes wrong with your application.
@@ -385,7 +385,7 @@ In production, you should set app.debug = False to disable the debugger and hide
 You could also use different web server configurations like Gunicorn or Uwsgi to run the application in production.
 
 
-# B202 #
+## B202 ##
 ## tarfile_unsafe_members ##
 The tarfile_unsafe_members vulnerability in Python occurs when using the tarfile.TarFile.extractall() method to extract files from a tar archive without properly checking for unsafe file names (such as those that contain '/', '..', and '\0'). This can lead to a directory traversal vulnerability, which can be exploited to access files outside of the intended directory.
 
@@ -411,7 +411,7 @@ It's important to note that using the add() method can be more secure, but it ca
 In summary, to fix the tarfile_unsafe_members vulnerability, you should use the tarfile.TarFile.extract() method and filter the files based on their name, or use the tarfile.TarFile.add() method to add files to the archive, and validate and filter filenames before passing them to the add() method.
 
 
-# B324 #
+## B324 ##
 ## hashlib ##
 
 The hashlib library in Python is commonly used to create cryptographic hashes of data, such as SHA-256 or SHA-512. However, there are a few potential vulnerabilities that can arise when using hashlib incorrectly.
@@ -431,7 +431,7 @@ Use a library like argon2, bcrypt or scrypt that include salt and iteration coun
 It's important to note that, while these steps will help to improve the security of your application, it's also important to keep your software updated and to use best practices when handling sensitive data.
 
 
-# B501 #
+## B501 ##
 ## request_with_no_cert_validation ##
 To fix the "request with no certificate validation" vulnerability in Python, you can use the requests library's verify parameter. This parameter allows you to specify the path to a CA_BUNDLE file or directory with certificates of trusted CAs.
 
@@ -447,7 +447,7 @@ response = requests.get('https://example.com', verify=False) # NOT RECOMMENDED
 ````
 It is better to use a CA_BUNDLE file or directory with certificates of trusted CAs, as this will allow your application to verify the identity of the server it is communicating with and ensure that the connection is secure.
 
-# B502 #
+## B502 ##
 ## ssl_with_bad_version ##
 
 To fix the issue of "ssl_with_bad_version" in Python, you can take the following steps:
@@ -473,7 +473,7 @@ r = http.request("GET", "https://example.com")
 It's important to note that specifying the SSL version is not only important for security but also compatibility with the systems and servers you're communicating with. You need to check and test the compatibility before you change the version.
 
 
-# B503 #
+## B503 ##
 ## ssl_with_bad_defaults ##
 
 
@@ -489,7 +489,7 @@ There are a few ways to fix the issue of "ssl_with_bad_defaults" in Python, depe
 
 It's important to note that updating or modifying the SSL configurations in your code is not a one-size-fits-all solution. You need to check and test the compatibility with the systems and servers you're communicating with.
 
-# B504 #
+## B504 ##
 ## ssl_with_no_version ##
 To fix the issue of "ssl_with_no_version" in Python, you can take the following steps:
 
@@ -514,7 +514,7 @@ r = http.request("GET", "https://example.com")
 It's important to note that specifying the SSL version is not only important for security but also compatibility with the systems and servers you're communicating with. You need to check and test the compatibility before you change the version.
 
 
-# B505 #
+## B505 ##
 ## weak_cryptographic_key ##
 
 To fix the issue of "weak_cryptographic_key" in Python, you can take the following steps:
@@ -534,7 +534,7 @@ It's important to note that specifying the SSL version is not only important for
 Additionally, it's important to keep in mind that using a weak cryptographic key can make your data vulnerable to attack, so it's essential to use secure and up-to-date algorithms to protect your data.
 
 
-# B506 #
+## B506 ##
 ## yaml_load ##
 The yaml.load() function in Python can be used to parse a YAML file and convert it into a Python object, but it has a security vulnerability known as "safe loading" that can be exploited by maliciously crafted YAML files. To fix this issue, you can use the yaml.safe_load() function instead.
 
@@ -559,7 +559,7 @@ with open("config.yaml", "r") as f:
 ````
 It's important to note that if you are receiving YAML files from an untrusted source, you should use yaml.safe_load() to parse the files in order to prevent any potential security vulnerabilities.
 
-# B507 #
+## B507 ##
 ## ssh_no_host_key_verification ##
 The issue of "ssh_no_host_key_verification" in Python can be caused by not properly verifying the host key when connecting to an SSH server. This can leave your connection vulnerable to man-in-the-middle (MITM) attacks.
 
@@ -591,7 +591,7 @@ c.run("ls -l")
 ````
 It's important to note that not verifying the host key leaves your connection vulnerable to MITM attacks, so it's essential to always verify the host key when connecting to an SSH server.
 
-# B508 #
+## B508 ##
 ## snmp_insecure_version ##
 The issue of "snmp_insecure_version" in Python can be caused by using an insecure version of the Simple Network Management Protocol (SNMP), such as SNMPv1 or SNMPv2c, which have known security vulnerabilities. Here are a few steps you can take to fix this issue:
 
@@ -610,7 +610,7 @@ snmp_context = SnmpEngine()
 
 It's important to note that using an older and unsecured version of SNMP can leave your SNMP communications vulnerable to attack, so it's essential to use the most recent and secure version of SNMP and to secure it properly with encryption algorithms and strong passwords to protect your data.
 
-# B509 #
+## B509 ##
 ## snmp_weak_cryptography ##
 
 The issue of "snmp_weak_cryptography" in Python can be caused by using weak encryption algorithms or weak passwords when securing Simple Network Management Protocol (SNMP) communications. Here are a few steps you can take to fix this issue:
@@ -634,7 +634,7 @@ snmp_context = context.SnmpContext(
 
 It's important to note that using weak encryption algorithms or weak passwords can leave your SNMP communications vulnerable to attack, so it's essential to use secure and up-to-date algorithms and strong passwords to protect your data.
 
-# B601 #
+## B601 ##
 ## paramiko_calls ##
 Paramiko is a Python library that provides an interface for SSH and SFTP. If you are using Paramiko in your Python code and it is vulnerable to certain attacks, there are a few steps you can take to fix it:
 
@@ -652,7 +652,7 @@ Paramiko is a Python library that provides an interface for SSH and SFTP. If you
 
 These are some general guidelines, if you can provide more information on the specific issue you are facing, I might be able to give you more specific advice.
 
-# B602 #
+## B602 ##
 ## subprocess_popen_with_shell_equals_true ##
 Using subprocess.Popen() with shell=True can be vulnerable to command injection attacks in Python. This is because, when shell=True, the command passed to Popen() is executed by a shell, which can potentially allow an attacker to inject additional commands.
 
@@ -677,7 +677,7 @@ subprocess.run(["ls", "-l", "-a"])
 ````
 These solutions will help you mitigate the command injection vulnerability and make your Python code more secure.
 
-# B603 #
+## B603 ##
 ## subprocess_without_shell_equals_true ##
 
 Using subprocess.Popen() with shell=False or subprocess.run() can still be vulnerable to command injection attacks in Python, if not properly handled.
@@ -705,7 +705,7 @@ It's also important to keep your system and python packages updated, as well as 
 
 By following these best practices and validating input, you can help mitigate the risk of command injection vulnerabilities in your Python code.
 
-# B604 #
+## B604 ##
 ## any_other_function_with_shell_equals_true ##
 
 There are other functions in Python that can be used to execute commands with shell=True and may also be vulnerable to command injection attacks.
@@ -731,7 +731,7 @@ In general, it's best to avoid using functions that take a command string and ex
 
 By following these best practices and validating input, you can help mitigate the risk of command injection vulnerabilities in your Python code.
 
-# B605 #
+## B605 ##
 ## start_process_with_a_shell ##
 Starting a process with a shell (e.g. /bin/sh or cmd.exe) can be vulnerable to command injection attacks in Python. This is because, when a process is started with a shell, the command passed to the process can potentially be interpreted by the shell and allow an attacker to inject additional commands.
 
@@ -760,7 +760,7 @@ It's also important to keep your system and python packages updated, as well as 
 
 By following these best practices and validating input, you can help mitigate the risk of command injection vulnerabilities in your Python code.
 
-# B606 #
+## B606 ##
 ## start_process_with_no_shell ##
 Starting a process without a shell (i.e. not passing shell=True) in Python is generally considered a safer option, as it can help prevent command injection attacks. This is because, when a process is started without a shell, the command passed to the process cannot be interpreted by the shell and does not allow an attacker to inject additional commands.
 
@@ -790,7 +790,7 @@ It's also important to keep your system and python packages updated, as well as 
 
 By following these best practices and validating input, you can help mitigate the risk of command injection vulnerabilities in your Python code.
 
-# B607 #
+## B607 ##
 ## start_process_with_partial_path ##
 
 Starting a process with a partial path (e.g. ls instead of /bin/ls) in Python can be vulnerable to command injection attacks. This is because, when a process is started with a partial path, the operating system may search for the command in a set of directories specified in the PATH environment variable, which can allow an attacker to inject malicious commands by placing a malicious executable in one of those directories.
@@ -821,7 +821,7 @@ It's also important to keep your system and python packages updated, as well as 
 
 By following these best practices and validating input, you can help mitigate the risk of command injection vulnerabilities in your Python code.
 608
-# B608 #
+## B608 ##
 ## hardcoded_sql_expressions ##
 Hardcoding SQL expressions in Python code can make it vulnerable to SQL injection attacks. SQL injection is a type of attack in which an attacker is able to insert malicious SQL code into a query, which can then be executed by the database. This can allow an attacker to view, modify, or delete sensitive data.
 
@@ -855,7 +855,7 @@ It's also important to keep your system and python packages updated, as well as 
 
 By following these best practices and using parameterized queries, you can help mitigate the risk of SQL injection vulnerabilities in your Python code.
 
-# B609 #
+## B609 ##
 ## linux_commands_wildcard_injection ##
 Linux command injection with wildcards (also known as path traversal or directory traversal) is a type of vulnerability that occurs when an attacker is able to inject special characters (such as "../" or "*") into a command that is executed on a Linux system. These special characters can be used to navigate to different directories or files on the system, which can allow an attacker to view, modify, or delete sensitive data.
 
@@ -883,7 +883,7 @@ It's also important to keep your system and python packages updated, as well as 
 
 By following these best practices and validating input, you can help mitigate the risk of wildcard injection vulnerabilities in your Python code.
 
-# B610 #
+## B610 ##
 ## django_extra_used ##
 The "django_extra_used" vulnerability is a security issue that affects versions of the Django web framework prior to version 1.11.22, 2.0.14, 2.1.11, and 2.2.9. The vulnerability allows an attacker to use a specially crafted URL to inject extra used query parameters into a Django form, potentially allowing for SQL injection attacks.
 
@@ -893,7 +893,7 @@ pip install --upgrade django
 ````
 Alternatively, you can apply the patch for this vulnerability manually. You can find the patch for different versions of Django on the official Django project's GitHub page.
 
-# B611 #
+## B611 ##
 ## django_rawsql_used ##
 Django provides a way to execute raw SQL queries using the django.db.connection.cursor() method. However, if the raw SQL queries are constructed with user input, it can be vulnerable to SQL injection attacks.
 
@@ -931,7 +931,7 @@ It's also important to keep your system and python packages updated, as well as 
 
 By following these best practices and using the ORM or parameterized queries, you can help mitigate the risk of SQL injection vulnerabilities in your Django code.
 
-# B612 #
+## B612 ##
 ## logging_config_insecure_listen ##
 The "logging config insecure listen" vulnerability refers to a situation where a logging configuration in a Python application is set up to listen on an insecure or publicly accessible network interface. This can allow an attacker to remotely connect to the logging service and potentially gain access to sensitive information, such as log data and system information.
 
@@ -950,7 +950,7 @@ To fix this vulnerability, it is important to ensure that the logging configurat
 Keep your system and python packages updated.
 By implementing these security measures, you can help mitigate the risk of the "logging config insecure listen" vulnerability and protect your application's sensitive log data from unauthorized access.
 
-# B701 #
+## B701 ##
 ## jinja2_autoescape_false ##
 Jinja2 is a popular template engine for Python and is often used with web frameworks such as Flask and Django. One of the security features of Jinja2 is the ability to automatically escape variables, which can help prevent XSS (Cross-Site Scripting) attacks.
 
@@ -974,7 +974,7 @@ It's also important to keep your system and python packages updated, as well as 
 
 By following these best practices and enabling the autoescape feature or manually escaping variables, you can help mitigate the risk of XSS vulnerabilities in your Jinja2 templates.
 
-# B702 #
+## B702 ##
 ## use_of_mako_templates ##
 
 Mako is a template engine for Python that allows you to embed Python code within a template. Like any other template engine, if not used carefully, it can be vulnerable to a number of security issues such as XSS (Cross-Site Scripting), Injection attacks and others.
@@ -997,7 +997,7 @@ By following these best practices and using the built-in Mako security features,
 
 It's also worth to consider using other template engines that are actively maintained and have better security track records, such as Jinja2, which has better security features built-in.
 
-# B703 #
+## B703 ##
 ## django_mark_safe ##
 Django's mark_safe() function allows developers to mark a string as safe for display in a template, allowing it to bypass the template engine's automatic escaping mechanisms.
 
